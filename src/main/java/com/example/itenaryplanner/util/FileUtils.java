@@ -24,7 +24,7 @@ public class FileUtils {
 			throw new UploadFileException("Only jpg, jpeg & png allowed");
 		}
 
-		if (MAX_FILE_SIZE_ALLOWED < file.getSize()) {
+		if (MAX_FILE_SIZE_ALLOWED < (file.getSize() / MAX_FILE_SIZE_ALLOWED)) {
 			throw new UploadFileException(String.format("Upto %s Kb file size allowed.", MAX_FILE_SIZE_ALLOWED));
 		}
 		
