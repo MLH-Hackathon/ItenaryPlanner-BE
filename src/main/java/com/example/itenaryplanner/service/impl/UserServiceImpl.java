@@ -3,6 +3,7 @@ package com.example.itenaryplanner.service.impl;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService {
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
-	public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+	public UserServiceImpl(UserRepository userRepository, @Qualifier("bcrypt") PasswordEncoder passwordEncoder) {
 		this.userRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
@@ -38,13 +39,14 @@ public class UserServiceImpl implements UserService {
 			throw new DuplicateUsernameException("Username already exists");
 		}
 
-		if (!passwordEncoder.matches(newUser.getCnfPassword(), passwordEncoder.encode(newUser.getPassword()))) {
+		final String encodedPwd = passwordEncoder.encode(newUser.getPassword());
+		if (!passwordEncoder.matches(newUser.getCnfPassword(), encodedPwd)) {
 			throw new PasswordMismatchException("Password mismatch");
 		}
 
 		user = new User();
 		user.setFullName(newUser.getName());
-		user.setPassword(newUser.getPassword());
+		user.setPassword(encodedPwd);
 		user.setUsername(newUser.getEmail());
 
 		FileUtils.validateFile(file);
