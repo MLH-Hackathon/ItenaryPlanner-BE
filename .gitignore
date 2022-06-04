@@ -1,0 +1,23 @@
+### macOS ###
+# General
+.DS_Store
+
+# Java annotation processor (APT)
+.factorypath
+
+### Eclipse ###
+.settings/
+
+### Java ###
+# Compiled class file
+*.class
+
+# Package Files #
+*.jar
+
+### Maven ###
+target/
+
+# General
+.classpath
+.project
