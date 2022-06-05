@@ -1,5 +1,7 @@
 package com.example.itenaryplanner.service.impl;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.itenaryplanner.dao.UserRepository;
 import com.example.itenaryplanner.dto.NewUserRequest;
@@ -16,8 +19,10 @@ import com.example.itenaryplanner.exception.DuplicateUsernameException;
 import com.example.itenaryplanner.exception.PasswordMismatchException;
 import com.example.itenaryplanner.model.User;
 import com.example.itenaryplanner.response.AuthenticationRequest;
+import com.example.itenaryplanner.security.ApplicationUser;
 import com.example.itenaryplanner.security.JwtUtil;
 import com.example.itenaryplanner.service.UserService;
+import com.example.itenaryplanner.util.FileUtils;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -26,6 +31,7 @@ public class UserServiceImpl implements UserService {
 	private PasswordEncoder passwordEncoder;
 	private AuthenticationManager authenticationManager;
 	private JwtUtil jwtUtil;
+//	private AmazonClient awsClient;
 
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository, @Qualifier("bcrypt") PasswordEncoder passwordEncoder,
@@ -34,6 +40,7 @@ public class UserServiceImpl implements UserService {
 		this.passwordEncoder = passwordEncoder;
 		this.authenticationManager = authenticationManager;
 		this.jwtUtil = jwtUtil;
+//		this.awsClient = awsClient;
 	}
 
 	@Override
@@ -80,6 +87,26 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return jwtUtil.generateToken(user);
+	}
+
+	@Override
+	public String updateProfilePic(MultipartFile profilePic, ApplicationUser appUser) throws IOException {
+		FileUtils.validateProfilePic(profilePic);
+
+		User user = userRepository.findByUsername(appUser.getUsername()).orElse(null);
+
+//		final String uploadUrl = awsClient.uploadImage(profilePic, true);
+		user.setProfilePicture(null);
+		userRepository.save(user);
+
+		return "Profile updated.";
+	}
+
+	@Override
+	public String getProfilePic(ApplicationUser appUser) {
+		User user = userRepository.findByUsername(appUser.getUsername()).orElse(null);
+
+		return user.getProfilePicture();
 	}
 
 }
