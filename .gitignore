@@ -21,3 +21,6 @@ target/
 # General
 .classpath
 .project
+
+# CREDS
+*.properties
