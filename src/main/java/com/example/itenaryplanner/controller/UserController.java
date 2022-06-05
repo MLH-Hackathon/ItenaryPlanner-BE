@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
@@ -22,6 +23,7 @@ import com.example.itenaryplanner.security.ApplicationUser;
 import com.example.itenaryplanner.security.CustomDetailsService;
 import com.example.itenaryplanner.service.UserService;
 
+@CrossOrigin(allowedHeaders = "*")
 @RestController
 public class UserController {
 
