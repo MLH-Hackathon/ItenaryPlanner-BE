@@ -1,7 +1,6 @@
 package com.example.itenaryplanner.service.impl;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,6 @@ import com.example.itenaryplanner.dto.TripActivityRequest;
 import com.example.itenaryplanner.model.TripActivity;
 import com.example.itenaryplanner.model.TripInfo;
 import com.example.itenaryplanner.service.TripActivityService;
-import com.example.itenaryplanner.util.FileUtils;
 
 @Service
 public class TripActivityServiceImpl implements TripActivityService {
@@ -37,15 +35,13 @@ public class TripActivityServiceImpl implements TripActivityService {
 		List<TripActivity> tripActivities = new ArrayList<>();
 
 		for (TripActivityRequest r : activities) {
-			FileUtils.validateTripFile(r.getPic());
-
 			TripActivity activity = new TripActivity();
 			activity.setTitle(r.getTitle());
 			activity.setDesc(r.getDesc());
 			activity.setWentOn(r.getWentOn());
 			activity.setAmtSpent(r.getAmtSpent());
-			activity.setPic(new String(r.getPic().getBytes(), StandardCharsets.UTF_8));
 			activity.setTripId(trip.getId());
+			activity.setAddress(r.getAddress());
 
 			tripActivities.add(activity);
 		}

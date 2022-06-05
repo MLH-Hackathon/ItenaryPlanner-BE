@@ -16,4 +16,6 @@ public class TripActivityRequest {
 
 	@Size(max = 2000, message = "Maximum 2000 characters allowed")
 	private String desc;
+
+	private String address;
 }
