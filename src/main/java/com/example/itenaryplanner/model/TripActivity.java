@@ -37,6 +37,8 @@ public class TripActivity {
 	@Column(name = "amt_spent")
 	private Float amtSpent;
 
-	@Column(name = "description")
+	@Column(name = "description", length = 2000)
 	private String desc;
+
+	private String address;
 }
