@@ -79,8 +79,7 @@ public class SearchTripServiceImpl implements SearchTripService {
 			details.setId(trip.getId().toString());
 			details.setFromDate(trip.getFromDate());
 			details.setToDate(trip.getToDate());
-			details.setFromPlace(trip.getFromPlace());
-			details.setToPlace(trip.getToPlace());
+			details.setLocation(trip.getToPlace());
 			details.setNumberOfPeople(trip.getNumOfTraveler());
 			details.setTotalCost(trip.getTotalExpense().toString());
 			tripCard.getTrip().add(details);

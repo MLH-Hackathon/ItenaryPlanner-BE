@@ -8,8 +8,7 @@ import lombok.Data;
 public class TripDetailsDto {
 
 	private String id;
-	private String fromPlace;
-	private String toPlace;
+	private String location;
 	private String fromDate;
 	private String toDate;
 	private String numberOfPeople;
