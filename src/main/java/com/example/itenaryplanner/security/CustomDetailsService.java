@@ -1,7 +1,4 @@
 package com.example.itenaryplanner.security;
-import java.util.ArrayList;
-
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,6 +20,6 @@ public class CustomDetailsService implements UserDetailsService {
 		com.example.itenaryplanner.model.User appUser = userRepository.findByUsername(userName)
 				.orElseThrow(() -> new UsernameNotFoundException("Username/Password Incorrect"));
     	
-        return new User(appUser.getUsername(), appUser.getPassword(), new ArrayList<>());
+        return new ApplicationUser(appUser);
     }
 }
