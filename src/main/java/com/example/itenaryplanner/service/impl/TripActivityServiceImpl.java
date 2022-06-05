@@ -5,6 +5,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,7 @@ public class TripActivityServiceImpl implements TripActivityService {
 	}
 
 	@Override
+	@Transactional
 	public void addActivity(TripInfo trip, List<TripActivityRequest> activities) throws IOException {
 		if (activities == null || activities.isEmpty()) {
 			return;
@@ -42,6 +45,7 @@ public class TripActivityServiceImpl implements TripActivityService {
 			activity.setWentOn(r.getWentOn());
 			activity.setAmtSpent(r.getAmtSpent());
 			activity.setPic(new String(r.getPic().getBytes(), StandardCharsets.UTF_8));
+			activity.setTripId(trip.getId());
 
 			tripActivities.add(activity);
 		}

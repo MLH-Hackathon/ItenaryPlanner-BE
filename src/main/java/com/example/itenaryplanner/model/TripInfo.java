@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,10 +22,9 @@ public class TripInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, unique = true, nullable = false)
     private Long id;
-//
-//	@OneToMany
-//	@JoinColumn(name = "user_id")
-//	private User user;
+
+	@Column(name = "user_id")
+	private Long userId;
 
 	@Column(name = "from_place")
 	private String fromPlace;

@@ -23,6 +23,9 @@ public class TripActivity {
     @Column(updatable = false, unique = true, nullable = false)
     private Long id;
 
+	@Column(name = "trip_id")
+	private Long tripId;
+
 	@Column(name = "memorable_pic")
 	private String pic;
 
