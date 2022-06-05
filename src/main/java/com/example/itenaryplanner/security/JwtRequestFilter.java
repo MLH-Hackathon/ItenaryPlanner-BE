@@ -34,6 +34,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         final String authorizationHeader = request.getHeader("Authorization");
         String username = null;
         String jwt = null;
+        
+        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+        response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "X-Requested-With, X-Auth-Token");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
 
         //get jwt, retrieve Username from jwt, get userdetails from username
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer")){
